@@ -39,3 +39,14 @@ variable "ec2-instance-name" {
   description = "Name for the ec2 instance"
   type        = string
 }
+
+variable "rds-db-name" {
+  description = "Name for the RDS db"
+  type        = string
+}
+
+variable "liquibase-s3-bucket-name" {
+  description = "Name for the S3 bucket to store the liquibase changeset"
+  type        = string
+  
+}

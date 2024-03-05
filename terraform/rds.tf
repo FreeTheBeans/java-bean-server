@@ -2,7 +2,7 @@ resource "aws_db_instance" "postgres-dev" {
   allocated_storage = 20 # Minimum as far as I can tell ()
 
   identifier     = var.rds_instance_identifier
-  db_name        = "free_the_beans_db" // FIXME: This should be a variable and would need to be replaced in workflows
+  db_name        = var.rds-db-name // FIXME: This should be a variable and would need to be replaced in workflows
   engine         = "postgres"
   engine_version = var.postgres_version # Latest version of PostgreSQL available on AWS RDS (as of 2024-02-06)
   instance_class = "db.t3.micro"
