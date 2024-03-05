@@ -1,0 +1,72 @@
+name: Database Development CI
+
+on:
+  pull_request:
+    branches: [ dev ]
+  workflow_call:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  terraform_test_workflow: 
+    name: Terraform Test
+    uses: ./.github/workflows/_terraform_tests.yml
+    secrets: inherit
+    with:
+      DB_INSTANCE_NAME: ${{vars.DB_INSTANCE_NAME}}
+
+  test_empty_db:
+    name: Test Empty DB Migration
+    needs: terraform_test_workflow
+    runs-on: ubuntu-latest
+    environment: Testing
+
+    services:
+      postgres:
+        image: postgres:16.1
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pass123
+          POSTGRES_DB: empty_temp
+          POSTGRES_PORT: 5432
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install psql
+        run: |
+          sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+          sudo apt-get update
+          sudo apt-get -y install postgresql
+      
+      - name: Install Liquibase
+        run: |
+          curl -L https://github.com/liquibase/liquibase/releases/download/v${LB_VERSION}/liquibase-${LB_VERSION}.zip --output liquibase.zip
+          unzip -o -d liquibase liquibase.zip
+        env:
+          LB_VERSION: ${{ vars.LIQUIBASE_VERSION }}
+
+      # - name: Retrieve Env File
+      #   run: aws s3 cp ${{ vars.LIQUIBASE_S3_BUCKET_NAME }} .env # export $(cat .env | xargs)
+
+      - name: Create Liquibase Properties
+        run: |
+          echo "changelog-file:" changelog.yaml >> liquibase.properties
+          echo "url: jdbc:postgresql://localhost/empty_temp" >> liquibase.properties
+          echo "username: postgres" >> liquibase.properties
+          echo "password: pass123" >> liquibase.properties
+
+      - name: Test Migration and Rollback
+        run: ./liquibase/liquibase update-testing-rollback --rollback-on-error=true
