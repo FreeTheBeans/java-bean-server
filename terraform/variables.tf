@@ -29,3 +29,13 @@ variable "vpc-name" {
   type        = string
   default     = "free-the-beans-vpc"
 }
+
+variable "ec2-key-name" {
+  description = "Name for the key pair the ec2 instnace is to use"
+  type        = string
+}
+
+variable "ec2-instance-name" {
+  description = "Name for the ec2 instance"
+  type        = string
+}

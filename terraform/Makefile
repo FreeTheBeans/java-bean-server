@@ -1,9 +1,6 @@
 
 ENV_VARS_DIR := env-vars
 ENV := local
-DB_USER:= placeholder
-DB_ID := placeholder
-DB_PW := placeholder
 
 .PHONY tf_setup:
 # use the tf_init, tf_format, tf_validate, tf_plan
