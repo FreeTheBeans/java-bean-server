@@ -10,8 +10,8 @@ module "ec2-instance" {
   vpc_security_group_ids = [aws_security_group.free_the_beans_ec2_sg.id]
   subnet_id              = module.vpc.public_subnets[0]
 
-  launch_template = ""
-  user_data       = ""
+#   launch_template = ""
+#   user_data       = ""
 
 }
 
