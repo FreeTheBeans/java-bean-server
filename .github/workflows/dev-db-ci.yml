@@ -63,7 +63,7 @@ jobs:
 
       - name: Create Liquibase Properties
         run: |
-          echo "changelog-file:" file.chng >> liquibase.properties
+          echo "changelog-file:" changelog.yaml >> liquibase.properties
           echo "url: jdbc:postgresql://localhost/empty_temp" >> liquibase.properties
           echo "username: postgres" >> liquibase.properties
           echo "password: pass123" >> liquibase.properties
