@@ -59,13 +59,10 @@ jobs:
         env:
           LB_VERSION: ${{ vars.LIQUIBASE_VERSION }}
 
-      - name: Retrieve Env File
-        run: aws s3 cp ${{ vars.LIQUIBASE_S3_BUCKET_NAME }} .env
-
       - name: Create Liquibase Properties
         run: |
-          export $(cat .env | xargs)
-          echo "changelog-file:" $CHANGELOG_FILE >> liquibase.properties
+
+          echo "changelog-file:" changelog.yaml >> liquibase.properties
           echo "url: jdbc:postgresql://localhost/empty_temp" >> liquibase.properties
           echo "username: postgres" >> liquibase.properties
           echo "password: pass123" >> liquibase.properties
