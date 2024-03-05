@@ -2,7 +2,7 @@ module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.6.0"
 
-  name = var.ec2-instance-name
+  name = aws_key_pair.generated_key.key_name
 
   instance_type = "t2.micro"
   key_name      = var.ec2-key-name
@@ -37,4 +37,20 @@ resource "aws_security_group" "free_the_beans_ec2_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "tls_private_key" "private_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_key" {
+  key_name   = var.ec2-key-name
+  public_key = tls_private_key.private_key.public_key_openssh
+}
+
+resource "aws_ssm_parameter" "private_key_param" {
+  name  = "private_key_free_the_beans_ec2"
+  type  = "SecureString"
+  value = tls_private_key.private_key.private_key_pem
 }
