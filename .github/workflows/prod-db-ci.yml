@@ -132,7 +132,7 @@ jobs:
         run: |
           export $(cat .env | xargs)
           export PGPASSWORD=$DB_PASSWORD
-          pg_dump "postgresql://$DB_USERNAME@$DB_URL/free_the_beans_db" > dump.sql
+          pg_dump "postgresql://$DB_USERNAME@$DB_URL/${{vars.DB_NAME}}" > dump.sql
           export PGPASSWORD="pass123"
           psql "postgresql://postgres@localhost:5432/prod_temp" -f dump.sql
           

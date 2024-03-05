@@ -45,4 +45,10 @@ jobs:
       - name: Terraform Plan
         working-directory: ${{ env.WORKING_DIRECTORY }}
         id: plan
-        run: make DB_USER=${{secrets.DB_USERNAME}} DB_PW=${{secrets.DB_PASSWORD}} DB_ID=${{inputs.DB_INSTANCE_NAME}} tf_plan
+        env:
+          DB_USER: ${{secrets.DB_USERNAME}}
+          DB_PW: ${{secrets.DB_PASSWORD}}
+          DB_ID: ${{inputs.DB_INSTANCE_NAME}}
+          DB_NAME: ${{vars.DB_NAME}}
+          LIQUIBASE_S3_BUCKET_NAME: ${{vars.LIQUIBASE_S3_BUCKET_NAME}}
+        run: make tf_plan

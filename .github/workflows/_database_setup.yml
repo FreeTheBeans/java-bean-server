@@ -46,11 +46,23 @@ jobs:
 
       - name: Terraform Plan
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: make DB_USER=${{secrets.DB_USERNAME}} DB_PW=${{secrets.DB_PASSWORD}} DB_ID=${{inputs.DB_INSTANCE_NAME}} tf_plan
+        env:
+          DB_USER: ${{secrets.DB_USERNAME}}
+          DB_PW: ${{secrets.DB_PASSWORD}}
+          DB_ID: ${{inputs.DB_INSTANCE_NAME}}
+          DB_NAME: ${{vars.DB_NAME}}
+          LIQUIBASE_S3_BUCKET_NAME: ${{vars.LIQUIBASE_S3_BUCKET_NAME}}
+        run: make tf_plan
 
       - name: Terraform Apply
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: make DB_USER=${{secrets.DB_USERNAME}} DB_PW=${{secrets.DB_PASSWORD}} DB_ID=${{inputs.DB_INSTANCE_NAME}} tf_apply
+        env:
+          DB_USER: ${{secrets.DB_USERNAME}}
+          DB_PW: ${{secrets.DB_PASSWORD}}
+          DB_ID: ${{inputs.DB_INSTANCE_NAME}}
+          DB_NAME: ${{vars.DB_NAME}}
+          LIQUIBASE_S3_BUCKET_NAME: ${{vars.LIQUIBASE_S3_BUCKET_NAME}}
+        run: make tf_apply
 
   setup_database_env_file:
     name: Dev CI
@@ -85,11 +97,11 @@ jobs:
           sudo apt-get -y install postgresql
 
       - name: Retrieve Env File
-        run: aws s3 cp ${{ secrets.BUCKET_OBJ_URL }} .env
+        run: aws s3 cp ${{ vars.LIQUIBASE_S3_BUCKET_NAME }} .env
 
       - name: Create Dev and Prod Databases
         run: |
           export $(cat .env | xargs)
           export PGPASSWORD=$DB_PASSWORD
           psql "postgresql://$DB_USERNAME@$DB_URL/postgres" -tc "SELECT 1 FROM pg_database WHERE datname = 'dev'" | grep -q 1 || psql "postgresql://$DB_USERNAME@$DB_URL/postgres" -c "CREATE DATABASE dev"
-          psql "postgresql://$DB_USERNAME@$DB_URL/postgres" -tc "SELECT 1 FROM pg_database WHERE datname = 'free_theBeans_db'" | grep -q 1 || psql "postgresql://$DB_USERNAME@$DB_URL/postgres" -c "CREATE DATABASE free_the_beans_db"
+          psql "postgresql://$DB_USERNAME@$DB_URL/postgres" -tc "SELECT 1 FROM pg_database WHERE datname = '${{vars.DB_NAME}}'" | grep -q 1 || psql "postgresql://$DB_USERNAME@$DB_URL/postgres" -c "CREATE DATABASE ${{vars.DB_NAME}}"
