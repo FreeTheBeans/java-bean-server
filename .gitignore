@@ -55,3 +55,4 @@ terraform.rc
 
 .vscode
 
+terraform/.terraform.lock.hcl
