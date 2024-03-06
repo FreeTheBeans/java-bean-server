@@ -58,8 +58,6 @@ jobs:
         env:
           LB_VERSION: ${{ vars.LIQUIBASE_VERSION }}
 
-      # - name: Retrieve Env File
-      #   run: aws s3 cp ${{ vars.LIQUIBASE_S3_BUCKET_NAME }} .env # export $(cat .env | xargs)
 
       - name: Create Liquibase Properties
         run: |
