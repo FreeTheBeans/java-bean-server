@@ -67,7 +67,7 @@ jobs:
             LB_VERSION: ${{ vars.LIQUIBASE_VERSION }}
   
         - name: Retrieve Env File
-          run: aws s3 cp ${{ vars.LIQUIBASE_S3_BUCKET_NAME }} .env
+          run: aws s3 cp s3://${{ vars.LIQUIBASE_S3_BUCKET_NAME }}/.env .env
   
         - name: Create Test Database
           run: |
@@ -113,7 +113,7 @@ jobs:
           LB_VERSION: ${{ vars.LIQUIBASE_VERSION }}
 
       - name: Retrieve Env File
-        run: aws s3 cp ${{ vars.LIQUIBASE_S3_BUCKET_NAME }} .env
+        run: aws s3 cp s3://${{ vars.LIQUIBASE_S3_BUCKET_NAME }}/.env .env
 
       - name: Create Liquibase Properties
         run: |
