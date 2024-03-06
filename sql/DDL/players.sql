@@ -7,3 +7,4 @@ CREATE TABLE "players" (
   "last_game_state" varchar DEFAULT 'start_state',
   "uid" varchar
 );
+--rollback DROP TABLE players;
