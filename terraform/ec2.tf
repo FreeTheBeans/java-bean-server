@@ -3,6 +3,7 @@ module "ec2-instance" {
   version = "5.6.0"
 
   name = aws_key_pair.generated_key.key_name
+  associate_public_ip_address = true
 
   instance_type = "t2.micro"
   key_name      = var.ec2-key-name
