@@ -3,3 +3,5 @@ databaseChangeLog:
       file: sql\DDL\states.sql
   - include:
       file: sql\DDL\players.sql
+  - include:
+      file: sql\DML\dummy.sql
