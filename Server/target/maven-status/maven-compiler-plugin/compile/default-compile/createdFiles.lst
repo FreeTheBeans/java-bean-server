@@ -1,0 +1,3 @@
+com\freethebeans\JavaBeanServerApplication.class
+com\freethebeans\server\controller\ApiController.class
+com\freethebeans\server\model\ApiResponse.class
