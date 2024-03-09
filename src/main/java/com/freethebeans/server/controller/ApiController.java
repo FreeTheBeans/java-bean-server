@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+    DBConnection dbConnection = new DBConnection();
 
     @GetMapping("/hello")
     public ApiResponse hello() {
@@ -17,5 +18,11 @@ public class ApiController {
     @GetMapping("/ping")
     public ApiResponse ping() {
         return new ApiResponse("pong");
+    }
+
+    @GetMapping("/dummy")
+    public ApiResponse dummy() {
+        dbConnection.getDummyRecord();
+        return new ApiResponse("dummy");
     }
 }
