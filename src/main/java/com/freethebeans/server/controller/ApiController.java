@@ -2,6 +2,7 @@ package com.freethebeans.server.controller;
 
 import com.freethebeans.server.model.ApiResponse;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,12 @@ public class ApiController {
 
     @GetMapping("/dummy")
     public ApiResponse dummy() {
-        dbConnection.getDummyRecord();
-        return new ApiResponse("dummy");
+        return new ApiResponse(dbConnection.queryDB("SELECT * FROM states").toString());
+    }
+
+    @GetMapping("/state/{stateName}")
+    public ApiResponse getStateInformation(@PathVariable String stateName) {
+        String stateInformation = dbConnection.fetchStateInformationFromDB(stateName).toString();
+        return new ApiResponse(stateInformation);
     }
 }
