@@ -2,7 +2,7 @@ module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.6.0"
 
-  name = aws_key_pair.generated_key.key_name
+  name                        = aws_key_pair.generated_key.key_name
   associate_public_ip_address = true
 
   instance_type = "t2.micro"
@@ -11,8 +11,8 @@ module "ec2-instance" {
   vpc_security_group_ids = [aws_security_group.free_the_beans_ec2_sg.id]
   subnet_id              = module.vpc.public_subnets[0]
 
-#   launch_template = ""
-#   user_data       = ""
+  #   launch_template = ""
+  #   user_data       = ""
 
 }
 
@@ -36,6 +36,20 @@ resource "aws_security_group" "free_the_beans_ec2_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 31415
+    to_port     = 31415
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
