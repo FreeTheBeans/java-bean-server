@@ -2,17 +2,16 @@ module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.6.0"
 
+  iam_role_name               = aws_iam_role.ec2-role.name
+
   name                        = aws_key_pair.generated_key.key_name
   associate_public_ip_address = true
 
   instance_type = "t2.micro"
   key_name      = var.ec2-key-name
-  #   monitoring             = true
   vpc_security_group_ids = [aws_security_group.free_the_beans_ec2_sg.id]
   subnet_id              = module.vpc.public_subnets[0]
 
-  #   launch_template = ""
-  #   user_data       = ""
 
 }
 
