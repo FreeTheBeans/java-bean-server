@@ -48,5 +48,5 @@ variable "rds-db-name" {
 variable "liquibase-s3-bucket-name" {
   description = "Name for the S3 bucket to store the liquibase changeset"
   type        = string
-  
+
 }
