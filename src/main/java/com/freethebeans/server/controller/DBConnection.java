@@ -41,7 +41,7 @@ public class DBConnection {
             for (String key : expectedFields) {
                 if (!dbSecret.has(key)) {
                     System.err.println("Error: expected DB credentials not found.");
-                    return null;
+                    throw new Exception("Error: expected DB credentials not found.");
                 }
             }
             return dbSecret;
