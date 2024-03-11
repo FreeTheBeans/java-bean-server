@@ -4,7 +4,7 @@ resource "aws_iam_role" "ec2-role" {
   force_detach_policies = false
   managed_policy_arns   = ["arn:aws:iam::aws:policy/AmazonRDSFullAccess", "arn:aws:iam::aws:policy/SecretsManagerReadWrite"]
   max_session_duration  = 3600
-  name                  = "FreeTheBeanEC2ServerRole"
+  name                  = "FreeTheBeanEC2Role"
   path                  = "/"
 
 }
