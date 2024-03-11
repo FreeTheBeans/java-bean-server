@@ -2,7 +2,7 @@ module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.6.0"
 
-  iam_role_name               = aws_iam_role.ec2-role.name
+  iam_instance_profile =  aws_iam_instance_profile.free-the-beans-instance-profile.name
 
   name                        = aws_key_pair.generated_key.key_name
   associate_public_ip_address = true
