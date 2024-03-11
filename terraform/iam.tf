@@ -8,3 +8,8 @@ resource "aws_iam_role" "ec2-role" {
   path                  = "/"
 
 }
+
+resource "aws_iam_instance_profile" "free-the-beans-instance-profile" {
+  name = "FreeTgeBeansInstanceProfile"
+  role = aws_iam_role.ec2-role.name
+}
