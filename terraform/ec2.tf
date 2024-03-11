@@ -12,6 +12,10 @@ module "ec2-instance" {
   vpc_security_group_ids = [aws_security_group.free_the_beans_ec2_sg.id]
   subnet_id              = module.vpc.public_subnets[0]
 
+  user_data = templatefile("${path.module}/templates/ec2_user_data.sh.tpl", {
+    # No variables to pass in
+  })
+
 
 }
 

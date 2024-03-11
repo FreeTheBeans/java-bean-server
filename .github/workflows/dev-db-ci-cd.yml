@@ -125,3 +125,9 @@ jobs:
 
       - name: Migrate Database to RDS
         run: ./liquibase/liquibase update --rollback-on-error=true
+
+  deploy_bean_server:
+     needs: database_setup_workflow
+     name: Deploy Bean Server
+     uses: ./.github/workflows/_deploy_bean_server.yml
+     secrets: inherit
