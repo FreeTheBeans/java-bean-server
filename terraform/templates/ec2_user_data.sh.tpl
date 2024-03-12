@@ -23,7 +23,7 @@ After=network.target
 [Service]
 User=ec2-user
 WorkingDirectory=/home/ec2-user/testServer/
-ExecStart=/home/ec2-user/java/jdk-21.0.2/bin/java -jar /home/ec2-user/testServer/java-bean-server-1.0.jar
+ExecStart=/home/ec2-user/java/jdk-21.0.2/bin/java -jar /home/ec2-user/server/java-bean-server-1.0.jar
 ExecStop=
 Restart=always
 RestartSec=3
