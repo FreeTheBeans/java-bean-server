@@ -1,0 +1,35 @@
+name: Deploy Server to EC2
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      
+      - name: Setup Java Maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'oracle'
+          java-version: '21'
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ASSUME_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      
+      - name: Package
+        run: mvn clean package
+
+      - name: Get private key
+        run: aws ssm get-parameter --name "private_key_free_the_beans_ec2" --with-decryption --query 'Parameter.Value' --region ${{secrets.AWS_REGION}} > test.pem
+      
+      - name: Deploy to EC2
+        run: scp -i test.pem target/*.jar ec2-user@bean.phipson.co.za:/home/ec2-user/server/
+
+      - name: Start Server
+        run: ssh -i test.pem ec2-user@bean.phipson.co.za "sudo systemctl start server.service"
