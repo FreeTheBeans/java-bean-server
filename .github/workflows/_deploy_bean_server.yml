@@ -29,7 +29,7 @@ jobs:
         run: aws ssm get-parameter --name "private_key_free_the_beans_ec2" --with-decryption --query 'Parameter.Value' --region ${{secrets.AWS_REGION}} > test.pem
       
       - name: Deploy to EC2
-        run: scp -i test.pem target/*.jar ec2-user@bean.phipson.co.za:/home/ec2-user/server/java-bean-server-1.0.jar
+        run: scp -i test.pem target/*.jar ec2-user@bean.phipson.co.za:/home/ec2-user/server/
 
       - name: Start Server
         run: ssh -i test.pem ec2-user@bean.phipson.co.za "sudo systemctl start server.service"
