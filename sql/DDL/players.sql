@@ -12,6 +12,3 @@ CREATE TABLE "players" (
 --changeset tphipson:alter-player-default-state
 ALTER TABLE "players"
 ALTER COLUMN "last_game_state" SET DEFAULT 'startState';
---rollback tphipson:alter-player-default-state
-ALTER TABLE "players"
-ALTER COLUMN "last_game_state" SET DEFAULT 'start_state';
