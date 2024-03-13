@@ -14,6 +14,9 @@ echo 'export PATH=\$JAVA_HOME/bin:\$PATH' >> ~/.bashrc
 cd
 source .bashrc
 
+cd /home/ec2-user/
+mkdir server
+
 # Now, create the systemd service file for your server
 cat <<'SERVICE' | sudo tee /etc/systemd/system/server.service > /dev/null
 [Unit]
@@ -34,9 +37,3 @@ SERVICE
 
 # Reload systemd to recognize the new service
 sudo systemctl daemon-reload
-
-# Enable the service to start on boot
-sudo systemctl enable server.service
-
-# Optionally, start the service immediately
-# sudo systemctl start server.service
