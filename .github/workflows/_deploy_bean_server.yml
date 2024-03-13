@@ -36,6 +36,7 @@ jobs:
       - name: Fetch Private Key
         run: |
           aws ssm get-parameter --name "private_key_free_the_beans_ec2" --with-decryption --query 'Parameter.Value' --region ${{secrets.AWS_REGION}} --output text > pvt_key.pem
+          cat pvt_key.pem
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
