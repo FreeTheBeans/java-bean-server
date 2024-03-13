@@ -34,7 +34,7 @@ public class DBConnection {
         host = String.format("jdbc:postgresql://%s:%d/dev", host, port);
     }
 
-    private JSONObject getDBCredentials(String secretName) {
+    public JSONObject getDBCredentials(String secretName) {
         try (SecretCache cache = new SecretCache()) {
             JSONObject dbSecret = new JSONObject(cache.getSecretString(secretID));
             String expectedFields[] = { "username", "password", "host", "port" };
