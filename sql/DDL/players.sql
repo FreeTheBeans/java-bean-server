@@ -10,10 +10,8 @@ CREATE TABLE "players" (
 --rollback DROP TABLE players;
 
 --changeset tphipson:alter-player-default-state
-ALTER TABLE "players" (
-  "last_game_state" varchar DEFAULT 'startState'
-);
+ALTER TABLE "players"
+ALTER COLUMN "last_game_state" SET DEFAULT 'startState';
 --rollback tphipson:alter-player-default-state
-ALTER TABLE "players" (
-  "last_game_state" varchar DEFAULT 'start_state'
-);
+ALTER TABLE "players"
+ALTER COLUMN "last_game_state" SET DEFAULT 'start_state';
