@@ -1,8 +1,16 @@
+server:
+  port: 31415
+
 spring:
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: 392947920013-9l3e2vj73lkoj36irb4hdm6buef6isam.apps.googleusercontent.com
-            client-secret: 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
+            client-id: 392947920013-1l81nh0e73gfp6uqmppv5jmunqc2vs0c.apps.googleusercontent.com
+            client-secret: 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
+
+oauth2:
+  authorization-uri: http://localhost:31415/login/oauth2/code/google
+
+
