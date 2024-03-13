@@ -21,8 +21,7 @@ public class AccessTokenProvider {
     public String getAccessToken() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication instanceof OAuth2AuthenticationToken) {
-            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
+        if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
             String clientRegistrationId = oauthToken.getAuthorizedClientRegistrationId();
 
             if (clientRegistrationId != null) {
@@ -50,10 +49,8 @@ public class AccessTokenProvider {
                 Map<String, String> request = new HashMap<>();
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.postForObject(revokeUrl, request, String.class);
-                System.out.println("revoked");
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.err.println("Error revoking access token: " + e.getMessage());
         }
     }
