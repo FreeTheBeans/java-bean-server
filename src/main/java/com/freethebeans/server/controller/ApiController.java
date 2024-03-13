@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
-    final DBConnection dbConnection; 
+    final DBConnection dbConnection;
 
     ApiController(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
@@ -24,6 +24,7 @@ public class ApiController {
 
     @GetMapping("/ping")
     public ApiResponse ping() {
+        System.out.println("Playing ping pong with a client...");
         return new ApiResponse("pong");
     }
 

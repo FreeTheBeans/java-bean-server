@@ -8,3 +8,12 @@ CREATE TABLE "players" (
   "uid" varchar
 );
 --rollback DROP TABLE players;
+
+--changeset tphipson:alter-player-default-state
+ALTER TABLE "players" (
+  "last_game_state" varchar DEFAULT 'startState'
+);
+--rollback tphipson:alter-player-default-state
+ALTER TABLE "players" (
+  "last_game_state" varchar DEFAULT 'start_state'
+);
