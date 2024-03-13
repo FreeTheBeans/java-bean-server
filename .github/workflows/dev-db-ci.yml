@@ -68,3 +68,8 @@ jobs:
 
       - name: Test Migration and Rollback
         run: ./liquibase/liquibase update-testing-rollback --rollback-on-error=true
+  Integration_test:
+    name: Integration tests
+    uses: ./.github/workflows/_integration_postman_tests.yml
+    secrets: inherit
+        
