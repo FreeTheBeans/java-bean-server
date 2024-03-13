@@ -36,6 +36,7 @@ jobs:
       - name: Fetch Private Key
         run: |
           aws ssm get-parameter --name "private_key_free_the_beans_ec2" --with-decryption --query 'Parameter.Value' --region ${{secrets.AWS_REGION}} --output text > pvt_key.pem
+          chmod 600 pvt_key.pem
 
       - name: Add SSH key and configure known hosts
         run: |
