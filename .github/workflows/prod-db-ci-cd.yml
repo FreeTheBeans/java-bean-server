@@ -129,4 +129,9 @@ jobs:
     name: Deploy Bean Server
     uses: ./.github/workflows/_deploy_bean_server.yml
     secrets: inherit
-        
+       
+  Integration_test:
+    needs: deploy_bean_server
+    name: Integration tests
+    uses: ./.github/workflows/_integration_postman_tests.yml
+    secrets: inherit
