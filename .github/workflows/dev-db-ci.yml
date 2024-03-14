@@ -68,3 +68,5 @@ jobs:
 
       - name: Test Migration and Rollback
         run: ./liquibase/liquibase update-testing-rollback --rollback-on-error=true
+
+        
