@@ -15,9 +15,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.freethebeans.JavaBeanServer;
-import com.freethebeans.server.controller.ApiController;
 import com.freethebeans.server.controller.DBConnection;
-@SpringBootTest(classes=JavaBeanServer.class)
+
+@SpringBootTest(classes = JavaBeanServer.class)
 @AutoConfigureMockMvc
 class ApiControllerTest {
 
@@ -27,7 +27,7 @@ class ApiControllerTest {
 	@MockBean
 	DBConnection dbConnection;
 
-	@BeforeEach 
+	@BeforeEach
 	void setUp() throws JSONException {
 		JSONObject mockDbSecret = new JSONObject();
 		mockDbSecret.put("username", "mockUsername");
@@ -40,13 +40,13 @@ class ApiControllerTest {
 
 	@Test
 	void testHello() throws Exception {
-	
+
 		mockMvc.perform(get("/api/hello"))
 				.andExpect(status().isOk())
 				.andExpect(content().json("{\"message\":\"Hello, client! This is a stateless Spring REST API.\"}"));
 	}
 
-	//Test for the ping method
+	// Test for the ping method
 	@Test
 	void testPing() throws Exception {
 		mockMvc.perform(get("/api/ping"))
@@ -54,48 +54,51 @@ class ApiControllerTest {
 				.andExpect(content().json("{\"message\":\"pong\"}"));
 	}
 
-	//Test for wrong method on hello
+	// Test for wrong method on hello
 	@Test
 	void testHelloWrongMethod() throws Exception {
 		mockMvc.perform(post("/api/hello"))
 				.andExpect(status().isMethodNotAllowed());
 	}
 
-	//Test for wrong method on ping
+	// Test for wrong method on ping
 	@Test
 	void testPingWrongMethod() throws Exception {
 		mockMvc.perform(post("/api/ping"))
 				.andExpect(status().isMethodNotAllowed());
 	}
 
-	//Test for the dummy method
+	// Test for the dummy method
 	@Test
-	void testDummyMethod() throws Exception{
-		//return new ApiResponse(dbConnection.queryDB("SELECT * FROM states").toString());
+	void testDummyMethod() throws Exception {
+		// return new ApiResponse(dbConnection.queryDB("SELECT * FROM
+		// states").toString());
 		Mockito.when(dbConnection.queryDB(anyString())).thenReturn(new JSONObject().put("message", "dummy"));
 		mockMvc.perform(get("/api/dummy"))
 				.andExpect(status().isOk())
 				.andExpect(content().string("{\"message\":\"{\\\"message\\\":\\\"dummy\\\"}\"}"));
 	}
 
-	//Test for the state method
+	// Test for the state method
 	@Test
-	void testStateMethod() throws Exception{
-		//return new ApiResponse(dbConnection.fetchStateInformationFromDB(stateName).toString());
-		Mockito.when(dbConnection.fetchStateInformationFromDB(anyString())).thenReturn(new JSONObject().put("message", "state"));
+	void testStateMethod() throws Exception {
+		// return new
+		// ApiResponse(dbConnection.fetchStateInformationFromDB(stateName).toString());
+		Mockito.when(dbConnection.fetchStateInformationFromDB(anyString()))
+				.thenReturn(new JSONObject().put("message", "state"));
 		mockMvc.perform(get("/api/state/Alabama"))
 				.andExpect(status().isOk())
 				.andExpect(content().string("{\"message\":\"{\\\"message\\\":\\\"state\\\"}\"}"));
 	}
 
-	//Test for wrong method on dummy
+	// Test for wrong method on dummy
 	@Test
 	void testDummyMethodWrongMethod() throws Exception {
 		mockMvc.perform(post("/api/dummy"))
 				.andExpect(status().isMethodNotAllowed());
 	}
 
-	//Test for wrong method on state
+	// Test for wrong method on state
 	@Test
 	void testStateMethodWrongMethod() throws Exception {
 		mockMvc.perform(post("/api/state/Alabama"))

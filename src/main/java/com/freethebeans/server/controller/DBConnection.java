@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class DBConnection {
+    final String PLAYER_START_STATE = "startState";
+
     String secretID = "dev/database/credentials";
 
     String username = "";
@@ -136,6 +138,47 @@ public class DBConnection {
         return result;
     }
 
+    private void addPlayerToDB(String playerEmailString) {
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(host, username, password);
+            statement = connection.createStatement();
+
+            String contextQuery = "INSERT INTO players (username, email) VALUES (?, ?)";
+            PreparedStatement contextStatement = connection.prepareStatement(contextQuery);
+            String username = "BeanDoe";
+
+            String[] parts = playerEmailString.split("@");
+
+            if (parts.length == 2) {
+                username = parts[0];
+            } else {
+                System.err.println("Invalid email format");
+            }
+            contextStatement.setString(1, username);
+            contextStatement.setString(2, playerEmailString);
+            contextStatement.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Could not find the PostgreSQL JDBC driver. Include it in your library path.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error connecting to the database.");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (statement != null)
+                    statement.close();
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                System.err.println("Error closing resources.");
+                e.printStackTrace();
+            }
+        }
+    }
+
     public JSONObject fetchStateInformationFromDB(String state_id) {
         JSONObject stateInformation = new JSONObject();
         try {
@@ -191,5 +234,46 @@ public class DBConnection {
             }
         }
         return stateInformation;
+    }
+
+    public String fetchUserSavedStateFromDB(String userEmailString) {
+        String savedState = PLAYER_START_STATE;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(host, username, password);
+            statement = connection.createStatement();
+
+            String contextQuery = "SELECT last_game_state FROM players WHERE email = ?";
+            PreparedStatement contextStatement = connection.prepareStatement(contextQuery);
+            contextStatement.setString(1, userEmailString);
+            resultSet = contextStatement.executeQuery();
+
+            if (resultSet.next()) {
+                // player exists
+                savedState = resultSet.getString(1);
+            } else {
+                // player does not exist
+                addPlayerToDB(userEmailString);
+            }
+        } catch (ClassNotFoundException e) {
+            System.err.println("Could not find the PostgreSQL JDBC driver. Include it in your library path.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error connecting to the database.");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (statement != null)
+                    statement.close();
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                System.err.println("Error closing resources.");
+                e.printStackTrace();
+            }
+        }
+        return savedState;
     }
 }

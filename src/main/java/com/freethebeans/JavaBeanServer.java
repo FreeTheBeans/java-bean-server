@@ -2,9 +2,6 @@ package com.freethebeans;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import com.freethebeans.server.controller.DBConnection;
 
 @SpringBootApplication
 public class JavaBeanServer {
@@ -22,4 +19,3 @@ public class JavaBeanServer {
         System.out.println("===============================================");
     }
 }
-
