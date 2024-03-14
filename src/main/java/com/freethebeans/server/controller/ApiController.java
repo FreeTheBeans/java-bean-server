@@ -29,7 +29,7 @@ public class ApiController {
 
     @GetMapping("/dummy")
     public ApiResponse dummy() {
-        return new ApiResponse(dbConnection.queryDB("SELECT * FROM states").toString());
+        return new ApiResponse(dbConnection.queryDB("SELECT * FROM states WHERE state_id = 'dummyState'").toString());
     }
 
     @GetMapping("/state/{stateName}")
