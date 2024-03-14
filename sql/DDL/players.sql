@@ -13,3 +13,8 @@ CREATE TABLE "players" (
 ALTER TABLE "players"
 ALTER COLUMN "last_game_state" SET DEFAULT 'startState';
 --rollback ALTER TABLE "players" ALTER COLUMN "last_game_state" DROP DEFAULT;
+
+--changeset tphipson:alter-player-ui-to-email
+ALTER TABLE "players"
+RENAME COLUMN "uid" TO email;
+--rollback ALTER TABLE "players" RENAME COLUMN "email" TO "uid";
