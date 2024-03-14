@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+//@RequestMapping("/auth")
 public class OAuth2LoginController {
 
     private final ClientRegistrationRepository clientRegistrationRepository;
@@ -23,6 +25,7 @@ public class OAuth2LoginController {
 
     @GetMapping("/oauth2/login")
     public String getOAuthLogin(Model model) {
+        System.out.println("hert");
         ClientRegistration googleRegistration = clientRegistrationRepository.findByRegistrationId("google");
         if (googleRegistration != null) {
             String authUrl = googleRegistration.getProviderDetails().getAuthorizationUri() +
@@ -31,6 +34,7 @@ public class OAuth2LoginController {
                     "&response_type=code" +
                     "&scope=" + String.join("+", googleRegistration.getScopes());
             model.addAttribute("authUrl", authUrl);
+            System.out.println("her" + authUrl);
             return "oauth2_login";
         } else {
             return "error";

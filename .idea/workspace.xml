@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="efde10db-19c5-4c67-9874-c576a9206557" name="Changes" comment="" />
+    <list default="true" id="efde10db-19c5-4c67-9874-c576a9206557" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-bean-server.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/freethebeans/server/controller/OAuth2LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/freethebeans/server/controller/OAuth2LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/resources/ApiControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/resources/ApiControllerTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,12 +42,22 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Spring Boot.JavaBeanServer.executor": "Debug",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "Spring Boot.JavaBeanServer.executor": "Run",
+    "git-widget-placeholder": "feat-api-dev-integration",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/patef001/Documents/Grad Work/Java/java-bean-server",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -73,6 +89,14 @@
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="efde10db-19c5-4c67-9874-c576a9206557" name="Changes" comment="" />
+      <created>1710431011503</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710431011503</updated>
+      <workItem from="1710431012467" duration="1610000" />
+    </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
