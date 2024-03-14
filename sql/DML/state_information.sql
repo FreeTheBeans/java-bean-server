@@ -122,3 +122,41 @@ INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('thaban
 --changeset aokruger:insert-thabang-state-option2
 INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('thabang', 'Gently approach Thabang.', 'thabangEscape');
 --rollback DELETE FROM state_options WHERE "state_id" = 'thabang';
+
+-- =========================== UPDATES ===========================
+
+--changeset tphipson:update-start-state-punc
+UPDATE states
+SET context = 'You are... a bean. You are in the kitchen, where the BBD Chef accidentally dropped you, preventing you from being someone''s lunch. It is up to you to escape. Where would you like to go?'
+WHERE state_id = 'startState';
+--rollback empty
+
+--changeset tphipson:update-lucky-state-punc
+UPDATE states
+SET context = 'You walk into the room and see a handsome man named Lucky busy working on a very strange thing called Javascript (it does not look fun). There is a door on the right and a door on the left. Lucky does not see you yet, but he is looking tired so you might want to move quickly before he gets up to go fetch coffee...'
+WHERE state_id = 'lucky';
+--rollback empty
+
+--changeset tphipson:update-lucky-death-state-punc
+UPDATE states
+SET context = 'Oh no. As you snuck into this room, you accidently stepped on a banana. That banana sent signals to Lucky''s missile-firing drone which fired missiles at you, killing you instantly.'
+WHERE state_id = 'luckyDeath';
+--rollback empty
+
+--changeset tphipson:update-tony-state-punc
+UPDATE states
+SET context = 'In this room you find Tony the CIO. He is in a very important meeting regarding BBD''s informations. You better move fast before he finishes with the meeting and sees you!'
+WHERE state_id = 'tony';
+--rollback empty
+
+--changeset tphipson:update-grad-state-punc
+UPDATE states
+SET context = 'Here you find the entire grad group from 2024, They are busy with the Java LevelUp. All of them are crying and don''t have the will to get up and eat you, so there is no immediate danger.'
+WHERE state_id = 'grads';
+--rollback empty
+
+--changeset tphipson:update-thabang-state-punc
+UPDATE states
+SET context = 'Thabang takes you to the roof where a helicopter awaits you with the rest of the bean refugees Thabang rescued. The helicopter will take you to the promised bean land, which contains all the loose, well-drained soil with some organic matter and a soil pH of 6.5 that beans love. Congratulations you''ve bean saved!'
+WHERE state_id = 'thabangEscape';
+--rollback empty
