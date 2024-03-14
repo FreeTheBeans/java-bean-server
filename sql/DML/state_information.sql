@@ -123,8 +123,6 @@ INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('thaban
 INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('thabang', 'Gently approach Thabang.', 'thabangEscape');
 --rollback DELETE FROM state_options WHERE "state_id" = 'thabang';
 
--- =========================== UPDATES ===========================
-
 --changeset tphipson:update-start-state-punc
 UPDATE states
 SET context = 'You are... a bean. You are in the kitchen, where the BBD Chef accidentally dropped you, preventing you from being someone''s lunch. It is up to you to escape. Where would you like to go?'
