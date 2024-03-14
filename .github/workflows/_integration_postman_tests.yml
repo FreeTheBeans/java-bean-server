@@ -1,0 +1,16 @@
+name: Deploy Server to EC2
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Uses Newman to run Postman tests
+        uses: matt-ball/newman-action@master
+        with:
+          collection: postman/FreeTheBeans.postman_collection.json
