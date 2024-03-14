@@ -37,4 +37,15 @@ public class ApiController {
         String stateInformation = dbConnection.fetchStateInformationFromDB(stateName).toString();
         return new ApiResponse(stateInformation);
     }
+
+    @GetMapping("/last_state/{playerEmail}")
+    public ApiResponse getSavedState(@PathVariable String playerEmail) {
+        String lastState = dbConnection.PLAYER_START_STATE;
+        try {
+            lastState = dbConnection.fetchUserSavedStateFromDB(playerEmail);
+        } catch (Exception e) {
+            System.err.println("Failed to get users last saved state. Returning default value.");
+        }
+        return new ApiResponse(lastState);
+    }
 }
