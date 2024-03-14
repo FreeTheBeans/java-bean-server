@@ -87,6 +87,10 @@ INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('tony',
 INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('tony', 'Go to the room next to Rudolph''s.', 'tonyDeadEnd');
 --rollback DELETE FROM state_options WHERE "state_id" = 'tony';
 
+--changeset aokruger:insert-tony-dead-end-state-option1
+INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('tonyDeadEnd', 'Go back to Tony.', 'tony');
+--rollback DELETE FROM state_options WHERE "state_id" = 'tonyDeadEnd';
+
 --changeset aokruger:insert-rudolph-state-option1
 INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('rudolph', 'Run back to Tony''s room.', 'tony');
 --rollback DELETE FROM state_options WHERE "state_id" = 'rudolph';
@@ -106,6 +110,10 @@ INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('grads'
 --changeset aokruger:insert-grads-state-option3
 INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('grads', 'Go to Thabang''s room.', 'thabang');
 --rollback DELETE FROM state_options WHERE "state_id" = 'grads';
+
+--changeset aokruger:insert-grads-dead-end-state-option1
+INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('gradsDeadEnd', 'Go back to the grads.', 'grads');
+--rollback DELETE FROM state_options WHERE "state_id" = 'gradsDeadEnd';
 
 --changeset aokruger:insert-thabang-state-option1
 INSERT INTO state_options (state_id, option_text, next_state_id) VALUES ('thabang', 'Go back to the grads.', 'grads');
