@@ -72,3 +72,7 @@ resource "aws_ssm_parameter" "private_key_param" {
   type  = "SecureString"
   value = tls_private_key.private_key.private_key_pem
 }
+
+resource "aws_eip" "ec2-eip" {
+  instance = module.ec2-instance.id
+}
